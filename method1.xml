@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<element name="method1" type="method">
+    <package>br.inpe.cap</package>
+    <class>Method1</class>
+    <modifiers>
+        <name>public</name>
+        <name>static</name>
+        <name>void</name>
+    </modifiers>
+    <annotations>
+        <annotation name="@Annotation1"/>
+    </annotations>
+</element>
