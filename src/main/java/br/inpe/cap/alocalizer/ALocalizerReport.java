@@ -4,6 +4,8 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
+import br.inpe.cap.alocalizer.output.ALocalizerResult;
+
 
 public class ALocalizerReport {
 
@@ -14,7 +16,7 @@ public class ALocalizerReport {
 	}
 
 	public void add(ALocalizerResult al) {
-		results.put(al.getFile(), al);
+		results.put(al.getFilePath(), al);
 	}
 
 	public ALocalizerResult get(String name) {

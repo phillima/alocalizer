@@ -6,11 +6,11 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 
-import br.inpe.cap.alocalizer.output.Representation;
+import br.inpe.cap.alocalizer.output.ALocalizerResult;
 
 public class XMLUtils {
 
-	public static void createXMLFile(Representation representation) {
+	public static void createXMLFile(ALocalizerResult representation) {
 		
 		 try {
 	        File file = new File(representation.getName()+".xml");

@@ -1,10 +1,15 @@
 package br.inpe.cap.alocalizer;
 
+import java.io.FileInputStream;
+import java.util.List;
+import java.util.concurrent.Callable;
+
 import org.eclipse.jdt.core.dom.ASTVisitor;
 import org.eclipse.jdt.core.dom.Annotation;
 import org.eclipse.jdt.core.dom.BodyDeclaration;
 import org.eclipse.jdt.core.dom.CompilationUnit;
 import org.eclipse.jdt.core.dom.FieldDeclaration;
+import org.eclipse.jdt.core.dom.FileASTRequestor;
 import org.eclipse.jdt.core.dom.MarkerAnnotation;
 import org.eclipse.jdt.core.dom.MethodDeclaration;
 import org.eclipse.jdt.core.dom.NormalAnnotation;
@@ -12,41 +17,43 @@ import org.eclipse.jdt.core.dom.SingleMemberAnnotation;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
 
 
-public class Executor extends ASTVisitor{
-	
-	@Override
-	public boolean visit(TypeDeclaration node) {
-		checkForAnnotations(node);
-		return super.visit(node);
-	}
-	
-	@Override
-	public boolean visit(FieldDeclaration node) {
-		checkForAnnotations(node);
-		return super.visit(node);
-	}
-	
-	@Override
-	public boolean visit(MethodDeclaration node) {
-		checkForAnnotations(node);
-		return super.visit(node);
-	}
+import br.inpe.cap.alocalizer.output.ALocalizerResult;
+import br.inpe.cap.alocalizer.utils.ClassUtils;
 
-	public void execute(CompilationUnit cu) {
-		cu.accept(this);
+
+public class Executor extends FileASTRequestor{
+
+	private ALocalizerReport report;
+	
+	public Executor() {
+		this.report = new ALocalizerReport();
 	}
 	
-	public void setResult(String className, String packageName) {
-	}
-	
-	//Inner helper methods
-	private boolean checkForAnnotations(BodyDeclaration node) {
-		for (Object obj : node.modifiers()) {
-			if(obj instanceof Annotation) { 
-				return true;
-			}
+	@Override
+	public void acceptAST(String sourceFilePath, 
+			CompilationUnit cu) {
+		
+		ALocalizerResult result = null;
+		ElementVisitor elementVis = new ElementVisitor();
+		
+		try {
+			ClassUtils info = new ClassUtils();
+			cu.accept(info);
+			if(info.getClassName()==null) return;
+		
+			result = new ALocalizerResult(sourceFilePath, info.getClassName(), info.getType());
+			
+			elementVis.execute(cu, result, report);
+			elementVis.setResult(result);
+			report.add(result);
+		} catch(Exception e) {
 		}
-		return false;
 	}
+	
+	public ALocalizerReport getReport() {
+		return this.report;
+	}
+	
+	
 
 }

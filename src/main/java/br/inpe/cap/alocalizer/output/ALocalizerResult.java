@@ -5,18 +5,40 @@ import java.util.List;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
-import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
 
-@XmlTransient
-public abstract class Representation {
+@XmlRootElement(name = "element")
+@XmlType (propOrder={"packageName","className","modifiers","annotations"})
+public class ALocalizerResult {
 	
-	protected String name;
-	protected String type;
-	protected List<AnnotationsRep> annotations;
-	protected String className;
-	protected String packageName;
-	protected List<String> modifiers;
+	private String name;
+	private String type;
+	private List<AnnotationsRep> annotations;
+	private String className;
+	private String packageName;
+	private List<String> modifiers;
+	private String filePath;
 	
+	public ALocalizerResult() {
+	}
+	
+	public ALocalizerResult(String name, List<String> modifiers, List<AnnotationsRep> annotations, String className,
+			String packageName, String type) {
+		this.name = name;
+		this.modifiers = modifiers;
+		this.annotations = annotations;
+		this.className = className;
+		this.packageName = packageName;
+		this.type = type;
+	}
+	
+	public ALocalizerResult(String filePath, String className, String packageName) {
+		this.className = className;
+		this.packageName = packageName;
+		this.filePath = filePath;
+	}
+
 	//GETTERS AND SETTERS
 	@XmlElementWrapper(name = "modifiers")
 	@XmlElement(name = "name")
@@ -62,15 +84,11 @@ public abstract class Representation {
 	public void setClassName(String className) {
 		this.className = className;
 	}
-	
-	//HELPER METHODS
-	protected void initialize(String name, List<String> modifiers, List<AnnotationsRep> annotations, String className,
-			String packageName) {
-		this.name = name;
-		this.modifiers = modifiers;
-		this.annotations = annotations;
-		this.className = className;
-		this.packageName = packageName;
+	public String getFilePath() {
+		return filePath;
+	}
+	public void setFilePath(String filePath) {
+		this.filePath = filePath;
 	}
 
 }

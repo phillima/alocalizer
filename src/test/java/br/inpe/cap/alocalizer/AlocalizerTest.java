@@ -1,26 +1,25 @@
 package br.inpe.cap.alocalizer;
 
-import static org.junit.Assert.assertEquals;
-
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
+
+import br.inpe.cap.alocalizer.output.ALocalizerResult;
 
 public class AlocalizerTest {
 
 	private static ALocalizerReport report;
 	
 	@BeforeClass
-	public void initialzer() {
+	public static void initialzer() {
 		report = new ALocalizer().calculate("test");
 	}
 	
 	@Test
 	public void testName() {
 		
-		ALocalizerResult a = report.getByClassName("cbo.Coupling1");
-		Assert.assertEquals(1, a.getLoc());
-		
+		ALocalizerResult a = report.getByClassName("annotation.Method1Test");
+		Assert.assertEquals("method1", a.getName());
 	}
 	
 	

@@ -1,7 +1,6 @@
 package br.inpe.cap.alocalizer;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,10 +8,9 @@ import java.util.List;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import br.inpe.cap.alocalizer.output.ALocalizerResult;
 import br.inpe.cap.alocalizer.output.AnnotAttributeRep;
 import br.inpe.cap.alocalizer.output.AnnotationsRep;
-import br.inpe.cap.alocalizer.output.FieldRepresentation;
-import br.inpe.cap.alocalizer.output.MethodRepresentation;
 import br.inpe.cap.alocalizer.utils.FileUtils;
 import br.inpe.cap.alocalizer.utils.XMLUtils;
 
@@ -35,7 +33,7 @@ public class XMLTest {
 		List<AnnotationsRep> annotations = new ArrayList<>();
 		annotations.add(new AnnotationsRep("@Annotation1", null));
 		
-		MethodRepresentation method1 = new MethodRepresentation("method1", modifiers, annotations, "Method1", "br.inpe.cap");
+		ALocalizerResult method1 = new ALocalizerResult("method1", modifiers, annotations, "Method1", "br.inpe.cap", "method");
 		
 		XMLUtils.createXMLFile(method1);
 		
@@ -48,7 +46,7 @@ public class XMLTest {
 		List<AnnotationsRep> annotations = new ArrayList<>();
 		annotations.add(new AnnotationsRep("@Annotation1", null));
 		
-		FieldRepresentation field1 = new FieldRepresentation("field1", modifiers, annotations,"Field1" ,"br.inpe.cap");
+		ALocalizerResult field1 = new ALocalizerResult("field1", modifiers, annotations,"Field1" ,"br.inpe.cap", "field");
 		
 		XMLUtils.createXMLFile(field1);
 		
@@ -68,7 +66,7 @@ public class XMLTest {
 		List<AnnotationsRep> annotations = new ArrayList<>();
 		annotations.add(new AnnotationsRep("@Annotation1", attributes));
 		
-		FieldRepresentation field2 = new FieldRepresentation("field2", modifiers, annotations,"Field2" ,"br.inpe.cap");
+		ALocalizerResult field2 = new ALocalizerResult("field2", modifiers, annotations,"Field2" ,"br.inpe.cap", "field");
 		
 		XMLUtils.createXMLFile(field2);
 		

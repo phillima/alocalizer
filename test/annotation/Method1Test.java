@@ -1,4 +1,4 @@
-package method;
+package annotation;
 
 public class Method1Test{
 

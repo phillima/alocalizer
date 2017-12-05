@@ -1,26 +1,40 @@
 package br.inpe.cap.alocalizer;
 
-import org.eclipse.jdt.core.dom.ASTVisitor;
+import java.util.List;
+import java.util.Map;
+
+import org.eclipse.jdt.core.JavaCore;
+import org.eclipse.jdt.core.dom.AST;
+import org.eclipse.jdt.core.dom.ASTParser;
 import org.eclipse.jdt.core.dom.CompilationUnit;
 
-
+import br.inpe.cap.alocalizer.output.ALocalizerResult;
 import br.inpe.cap.alocalizer.utils.ClassUtils;
+import br.inpe.cap.alocalizer.utils.FileUtils;
 
-public class ALocalizer extends ASTVisitor {
+public class ALocalizer {
 
-	public void localize(CompilationUnit cu) {
-		ClassUtils info = new ClassUtils();
-		cu.accept(info);
-		if(info.getClassName()==null) return;
-	
-		Executor exec = new Executor();
-		exec.execute(cu);
-		exec.setResult(info.getClassName(), info.getPackageName());
-	}
-
-	public ALocalizerReport calculate(String string) {
-		// TODO Auto-generated method stub
-		return null;
+	public ALocalizerReport calculate(String filePath) {
+		
+		
+		String[] srcDirs = FileUtils.getAllDirs(filePath);
+		String[] javaFiles = FileUtils.getAllJavaFiles(filePath);
+		
+		Executor storage = new Executor();
+		
+		ASTParser parser = ASTParser.newParser(AST.JLS8);
+		
+		parser.setResolveBindings(true);
+		parser.setBindingsRecovery(true);
+		
+		Map<String, String> options = JavaCore.getOptions();
+		JavaCore.setComplianceOptions(JavaCore.VERSION_1_8, options);
+		parser.setCompilerOptions(options);
+		parser.setEnvironment(null, srcDirs, null, true);
+		parser.createASTs(javaFiles, null, new String[0], storage, null);
+		
+		return storage.getReport();
+		
 	}
 
 }
