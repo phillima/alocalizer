@@ -9,7 +9,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 
-@XmlRootElement(name = "element")
 @XmlType (propOrder={"packageName","className","modifiers","annotations"})
 public class ALocalizerResult {
 	

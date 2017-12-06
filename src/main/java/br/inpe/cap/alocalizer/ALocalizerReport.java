@@ -6,11 +6,11 @@ import java.util.Map;
 
 import br.inpe.cap.alocalizer.output.ALocalizerResult;
 
-
 public class ALocalizerReport {
-
+	
+	private String projectName;
 	private Map<String, ALocalizerResult> results;
-
+	
 	public ALocalizerReport() {
 		this.results = new HashMap<String, ALocalizerResult>();
 	}
@@ -21,6 +21,14 @@ public class ALocalizerReport {
 
 	public ALocalizerResult get(String name) {
 		return results.get(name);
+	}
+	
+	public String getProjectName() {
+		return this.projectName;
+	}
+	
+	public void setProjectName(String projectName) {
+		this.projectName = projectName;
 	}
 
 	public Collection<ALocalizerResult> all() {

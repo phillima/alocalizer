@@ -28,9 +28,10 @@ public class ElementVisitor extends ASTVisitor{
 	public boolean visit(TypeDeclaration node) {
 		ALocalizerResult ar = new ALocalizerResult();
 		String name = node.getName().toString();
-		checkForModifiers(node, ar);
+		checkForModifiers(node, ar, null);
 		String type = (node.isInterface() ? "interface" : "class");
 		setAlocalizerResult(ar, name, type);
+		report.add(ar);
 		return super.visit(node);
 	}
 	
@@ -38,7 +39,7 @@ public class ElementVisitor extends ASTVisitor{
 	public boolean visit(MethodDeclaration node) {
 		ALocalizerResult ar = new ALocalizerResult();
 		String name = node.getName().toString();
-		checkForModifiers(node,ar);
+		checkForModifiers(node,ar,node.getReturnType2().toString());
 		setAlocalizerResult(ar, name, "method");
 		report.add(ar);
 		return super.visit(node);
@@ -52,7 +53,7 @@ public class ElementVisitor extends ASTVisitor{
 		if(obj instanceof VariableDeclarationFragment) {
 			name = ((VariableDeclarationFragment)obj).getName().toString();
 		}
-		checkForModifiers(node,ar);
+		checkForModifiers(node,ar,node.getType().toString());
 		setAlocalizerResult(ar, name, "field");
 		report.add(ar);
 		return super.visit(node);
@@ -67,11 +68,10 @@ public class ElementVisitor extends ASTVisitor{
 	}
 	
 	//INNER HELPER METHODS
-	private void checkForModifiers(BodyDeclaration node, ALocalizerResult ar) {
+	private void checkForModifiers(BodyDeclaration node, ALocalizerResult ar, String returnType) {
 		
 		List<AnnotationsResult> annotations = new ArrayList<>();
 		List<String> modifiers = new ArrayList<>();
-		
 		for (Object obj : node.modifiers()) {
 			if(obj instanceof Annotation) {
 				Annotation anot = (Annotation)obj;
@@ -80,6 +80,7 @@ public class ElementVisitor extends ASTVisitor{
 			}else //other modifiers
 				modifiers.add(obj.toString());
 		}
+		modifiers.add(returnType);
 		ar.setAnnotations(annotations);
 		ar.setModifiers(modifiers);
 	}

@@ -14,6 +14,16 @@ import java.util.stream.Stream;
 
 public class FileUtils {
 
+	public static String extractFinalWord(String path) {
+		
+		int lastIndex = path.lastIndexOf("/");
+		
+		if(lastIndex != -1)
+			return path.substring(lastIndex+1);
+		else
+			return path;
+	}
+	
 	public static String[] getAllDirs(String path) {
 		ArrayList<String> dirs = new ArrayList<String>();
 		getAllDirs(path, dirs);
@@ -83,8 +93,6 @@ public class FileUtils {
 			        .filter(Files::isDirectory)
 			        .forEach(subfolder::add);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
 		
 		return subfolder;

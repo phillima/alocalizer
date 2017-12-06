@@ -3,17 +3,22 @@ package br.inpe.cap.alocalizer;
 import java.nio.file.Path;
 import java.util.List;
 
-import org.eclipse.jdt.core.dom.AST;
-import org.eclipse.jdt.core.dom.ASTParser;
-import org.eclipse.jdt.core.dom.CompilationUnit;
-
+import br.inpe.cap.alocalizer.output.Output;
 import br.inpe.cap.alocalizer.utils.FileUtils;
+import br.inpe.cap.alocalizer.utils.XMLUtils;
 
 public class ALocalizerInitializer {
 
-	public static void main(String[] args) {
+	public void start(String string) {
+
+		List<Path> projects = FileUtils.listProjects(string);
+		ALocalizerReport report;
 		
-		ALocalizerReport report = new ALocalizer().calculate("teste");
+		for (Path path : projects) {
+			report = new ALocalizer().calculate(path.toString());
+			report.setProjectName(FileUtils.extractFinalWord(path.toString()));
+			XMLUtils.createXMLFile(new Output(report));
+		}
 		
 	}
 }

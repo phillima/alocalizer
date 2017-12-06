@@ -26,11 +26,16 @@ public class AlocalizerTest {
 	@Test
 	public void testMarkerAnnotation() {
 		
+		List<String> modifiers = new ArrayList<>();
+		modifiers.add("public");
+		modifiers.add("void");
 		ALocalizerResult a = report.getByFullyQualifiedName("annotation.Method1Test.method1");
 		assertEquals("method1", a.getName());
 		assertEquals("annotation.Method1Test", a.getClassName());
 		assertEquals("annotation", a.getPackageName());
 		assertEquals("Annotation1", a.getAnnotations().get(0).getAnnotationName());
+		for(int i = 0; i < modifiers.size(); i++)
+			assertEquals(modifiers.get(i), a.getModifiers().get(i));
 	}
 	
 	@Test
@@ -66,6 +71,11 @@ public class AlocalizerTest {
 	
 	@Test
 	public void testMultipleNormalAnnotation() {
+		
+		List<String> modifiers = new ArrayList<>();
+		modifiers.add("private");
+		modifiers.add("int");
+		
 		ALocalizerResult a = report.getByFullyQualifiedName("annotation.Field4Test.x");
 		
 		AnnotationsResult ar = a.getAnnotations().get(0);
@@ -92,6 +102,9 @@ public class AlocalizerTest {
 			List<AnnotAttribute> attr = ar5.getAnnotAttributes();
 			assertNull(attr);
 		}
+		
+		for(int i = 0; i < modifiers.size(); i++)
+			assertEquals(modifiers.get(i), a.getModifiers().get(i));
 		
 	}
 	

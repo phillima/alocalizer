@@ -6,22 +6,24 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 
+import br.inpe.cap.alocalizer.ALocalizerReport;
 import br.inpe.cap.alocalizer.output.ALocalizerResult;
+import br.inpe.cap.alocalizer.output.Output;
 
 public class XMLUtils {
 
-	public static void createXMLFile(ALocalizerResult representation) {
+	public static void createXMLFile(Output output) {
 		
-		 try {
-	        File file = new File(representation.getName()+".xml");
-	        JAXBContext jaxbContext = JAXBContext.newInstance(representation.getClass());
+		File file = new File(output.getProjectName() + ".xml");
+		try {
+	        
+	        JAXBContext jaxbContext = JAXBContext.newInstance(Output.class);
 	        Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
 
-	        // output pretty printed
 	        jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 
-	        jaxbMarshaller.marshal(representation, file);
-	        jaxbMarshaller.marshal(representation, System.out);
+	        jaxbMarshaller.marshal(output, file);
+	        jaxbMarshaller.marshal(output, System.out);
 
 	      } catch (JAXBException e) {
 	        e.printStackTrace();

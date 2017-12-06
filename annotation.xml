@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<output project="annotation">
+    <elements>
+        <element name="Field4Test" type="class">
+            <package>annotation</package>
+            <class>annotation.Field4Test</class>
+            <modifiers>
+                <name>public</name>
+            </modifiers>
+            <annotations/>
+        </element>
+        <element name="method1" type="method">
+            <package>annotation</package>
+            <class>annotation.Method1Test</class>
+            <modifiers>
+                <name>public</name>
+                <name>void</name>
+            </modifiers>
+            <annotations>
+                <annotation name="Annotation1"/>
+            </annotations>
+        </element>
+        <element name="method3" type="method">
+            <package>annotation</package>
+            <class>annotation.Method3Test</class>
+            <modifiers>
+                <name>public</name>
+                <name>void</name>
+            </modifiers>
+            <annotations>
+                <annotation name="Annotation1">
+                    <attributes name="value1" value="1"/>
+                    <attributes name="value2" value="2"/>
+                </annotation>
+            </annotations>
+        </element>
+        <element name="Method3Test" type="class">
+            <package>annotation</package>
+            <class>annotation.Method3Test</class>
+            <modifiers>
+                <name>public</name>
+            </modifiers>
+            <annotations/>
+        </element>
+        <element name="Method1Test" type="class">
+            <package>annotation</package>
+            <class>annotation.Method1Test</class>
+            <modifiers>
+                <name>public</name>
+            </modifiers>
+            <annotations/>
+        </element>
+        <element name="Method2Test" type="class">
+            <package>annotation</package>
+            <class>annotation.Method2Test</class>
+            <modifiers>
+                <name>public</name>
+            </modifiers>
+            <annotations/>
+        </element>
+        <element name="method2" type="method">
+            <package>annotation</package>
+            <class>annotation.Method2Test</class>
+            <modifiers>
+                <name>public</name>
+                <name>void</name>
+            </modifiers>
+            <annotations>
+                <annotation name="Annotation1">
+                    <attributes name="value" value="2"/>
+                </annotation>
+            </annotations>
+        </element>
+        <element name="x" type="field">
+            <package>annotation</package>
+            <class>annotation.Field4Test</class>
+            <modifiers>
+                <name>private</name>
+                <name>int</name>
+            </modifiers>
+            <annotations>
+                <annotation name="Annotation1">
+                    <attributes name="value1" value="1"/>
+                    <attributes name="value2" value="2"/>
+                </annotation>
+                <annotation name="Annotation2">
+                    <attributes name="value2" value="2"/>
+                    <attributes name="value3" value="3"/>
+                </annotation>
+            </annotations>
+        </element>
+        <element name="y" type="field">
+            <package>annotation</package>
+            <class>annotation.Field4Test</class>
+            <modifiers>
+                <name>private</name>
+                <name>int</name>
+            </modifiers>
+            <annotations>
+                <annotation name="Annotation3"/>
+            </annotations>
+        </element>
+        <element name="z" type="field">
+            <package>annotation</package>
+            <class>annotation.Field4Test</class>
+            <modifiers>
+                <name>private</name>
+                <name>int</name>
+            </modifiers>
+            <annotations/>
+        </element>
+    </elements>
+</output>
