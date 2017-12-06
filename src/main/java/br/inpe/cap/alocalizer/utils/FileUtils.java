@@ -4,9 +4,12 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.DirectoryStream;
+import java.nio.file.FileVisitResult;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.SimpleFileVisitor;
+import java.nio.file.attribute.BasicFileAttributes;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -99,26 +102,18 @@ public class FileUtils {
 	}
 	
 	public static String[] getAllJavaFiles(String path) {
-		ArrayList<String> files = new ArrayList<String>();
-		getAllJavaFiles(path, files);
 		
-		String[] ar = new String[files.size()];
-		ar = files.toArray(ar);
-		return ar;
-	}
-	
-	private static void getAllJavaFiles(String path, ArrayList<String> files) {
-		
-		File f = new File(path);
-		if(f.getName().equals(".git")) return;
-		
-		for(File inside : f.listFiles()) {
-			if(inside.isDirectory()) {
-				String newDir = inside.getAbsolutePath();
-				getAllJavaFiles(newDir, files);
-			} else if(inside.getAbsolutePath().toLowerCase().endsWith(".java")) {
-				files.add(inside.getAbsolutePath());
-			}
+		FindFiles ff = new FindFiles();
+		try {
+			Files.walkFileTree(Paths.get(path), ff);
+		} catch (IOException e) {
 		}
+		
+		List<String> filesList = ff.getFiles();
+		
+		String[] filesArray = new String[filesList.size()];
+		filesArray = filesList.toArray(filesArray);
+		
+		return filesArray;
 	}
 }

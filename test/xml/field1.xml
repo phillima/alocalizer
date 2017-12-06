@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<element name="field1" type="field">
-    <package>br.inpe.cap</package>
-    <class>Field1</class>
-    <modifiers>
-        <name>public</name>
-        <name>static</name>
-        <name>void</name>
-    </modifiers>
-    <annotations>
-        <annotation name="@Annotation1"/>
-    </annotations>
-</element>
+<project name="field1">
+    <elements>
+        <element name="field1" type="field">
+            <package>br.inpe.cap</package>
+            <class>Field1</class>
+            <signature>
+                <name>public</name>
+                <name>static</name>
+                <name>void</name>
+            </signature>
+            <annotations>
+                <annotation name="@Annotation1"/>
+            </annotations>
+        </element>
+    </elements>
+</project>

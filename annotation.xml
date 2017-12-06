@@ -1,32 +1,44 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<output project="annotation">
+<project name="annotation">
     <elements>
-        <element name="Field4Test" type="class">
-            <package>annotation</package>
-            <class>annotation.Field4Test</class>
-            <modifiers>
-                <name>public</name>
-            </modifiers>
-            <annotations/>
-        </element>
         <element name="method1" type="method">
             <package>annotation</package>
             <class>annotation.Method1Test</class>
-            <modifiers>
+            <signature>
                 <name>public</name>
                 <name>void</name>
-            </modifiers>
+            </signature>
             <annotations>
                 <annotation name="Annotation1"/>
+            </annotations>
+        </element>
+        <element name="value" type="field">
+            <package>annotation</package>
+            <class>annotation.Enum1</class>
+            <signature>
+                <name>private</name>
+                <name>final</name>
+                <name>int</name>
+            </signature>
+            <annotations/>
+        </element>
+        <element name="Clazz" type="class">
+            <package>annotation</package>
+            <class>annotation.Clazz</class>
+            <signature>
+                <name>public</name>
+            </signature>
+            <annotations>
+                <annotation name="AnnotationClazz"/>
             </annotations>
         </element>
         <element name="method3" type="method">
             <package>annotation</package>
             <class>annotation.Method3Test</class>
-            <modifiers>
+            <signature>
                 <name>public</name>
                 <name>void</name>
-            </modifiers>
+            </signature>
             <annotations>
                 <annotation name="Annotation1">
                     <attributes name="value1" value="1"/>
@@ -34,37 +46,48 @@
                 </annotation>
             </annotations>
         </element>
-        <element name="Method3Test" type="class">
-            <package>annotation</package>
-            <class>annotation.Method3Test</class>
-            <modifiers>
-                <name>public</name>
-            </modifiers>
-            <annotations/>
-        </element>
-        <element name="Method1Test" type="class">
-            <package>annotation</package>
-            <class>annotation.Method1Test</class>
-            <modifiers>
-                <name>public</name>
-            </modifiers>
-            <annotations/>
-        </element>
         <element name="Method2Test" type="class">
             <package>annotation</package>
             <class>annotation.Method2Test</class>
-            <modifiers>
+            <signature>
                 <name>public</name>
-            </modifiers>
+            </signature>
+            <annotations/>
+        </element>
+        <element name="Enum1" type="enum">
+            <package>annotation</package>
+            <class>annotation.Enum1</class>
+            <signature>
+                <name>public</name>
+            </signature>
+            <annotations>
+                <annotation name="AnnotationEnum"/>
+            </annotations>
+        </element>
+        <element name="Method3Test" type="class">
+            <package>annotation</package>
+            <class>annotation.Method3Test</class>
+            <signature>
+                <name>public</name>
+            </signature>
+            <annotations/>
+        </element>
+        <element name="j" type="field">
+            <package>annotation</package>
+            <class>annotation.Clazz</class>
+            <signature>
+                <name>private</name>
+                <name>int</name>
+            </signature>
             <annotations/>
         </element>
         <element name="method2" type="method">
             <package>annotation</package>
             <class>annotation.Method2Test</class>
-            <modifiers>
+            <signature>
                 <name>public</name>
                 <name>void</name>
-            </modifiers>
+            </signature>
             <annotations>
                 <annotation name="Annotation1">
                     <attributes name="value" value="2"/>
@@ -74,10 +97,10 @@
         <element name="x" type="field">
             <package>annotation</package>
             <class>annotation.Field4Test</class>
-            <modifiers>
+            <signature>
                 <name>private</name>
                 <name>int</name>
-            </modifiers>
+            </signature>
             <annotations>
                 <annotation name="Annotation1">
                     <attributes name="value1" value="1"/>
@@ -92,10 +115,10 @@
         <element name="y" type="field">
             <package>annotation</package>
             <class>annotation.Field4Test</class>
-            <modifiers>
+            <signature>
                 <name>private</name>
                 <name>int</name>
-            </modifiers>
+            </signature>
             <annotations>
                 <annotation name="Annotation3"/>
             </annotations>
@@ -103,11 +126,27 @@
         <element name="z" type="field">
             <package>annotation</package>
             <class>annotation.Field4Test</class>
-            <modifiers>
+            <signature>
                 <name>private</name>
                 <name>int</name>
-            </modifiers>
+            </signature>
+            <annotations/>
+        </element>
+        <element name="Field4Test" type="class">
+            <package>annotation</package>
+            <class>annotation.Field4Test</class>
+            <signature>
+                <name>public</name>
+            </signature>
+            <annotations/>
+        </element>
+        <element name="Method1Test" type="class">
+            <package>annotation</package>
+            <class>annotation.Method1Test</class>
+            <signature>
+                <name>public</name>
+            </signature>
             <annotations/>
         </element>
     </elements>
-</output>
+</project>

@@ -1,26 +1,20 @@
 package br.inpe.cap.alocalizer;
 
-import java.util.List;
 import java.util.Map;
 
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.dom.AST;
 import org.eclipse.jdt.core.dom.ASTParser;
-import org.eclipse.jdt.core.dom.CompilationUnit;
-
-import br.inpe.cap.alocalizer.output.ALocalizerResult;
-import br.inpe.cap.alocalizer.utils.ClassUtils;
 import br.inpe.cap.alocalizer.utils.FileUtils;
 
 public class ALocalizer {
 
-	public ALocalizerReport calculate(String filePath) {
+	public ALocalizerReport calculate(String projectPath) {
 		
 		
-		String[] srcDirs = FileUtils.getAllDirs(filePath);
-		String[] javaFiles = FileUtils.getAllJavaFiles(filePath);
-		
-		Executor storage = new Executor();
+		String[] srcDirs = FileUtils.getAllDirs(projectPath);
+		String[] javaFiles = FileUtils.getAllJavaFiles(projectPath);
+		Executor storage = new Executor(projectPath);
 		
 		ASTParser parser = ASTParser.newParser(AST.JLS8);
 		

@@ -7,6 +7,7 @@ import org.eclipse.jdt.core.dom.ASTVisitor;
 import org.eclipse.jdt.core.dom.Annotation;
 import org.eclipse.jdt.core.dom.BodyDeclaration;
 import org.eclipse.jdt.core.dom.CompilationUnit;
+import org.eclipse.jdt.core.dom.EnumDeclaration;
 import org.eclipse.jdt.core.dom.FieldDeclaration;
 import org.eclipse.jdt.core.dom.MemberValuePair;
 import org.eclipse.jdt.core.dom.MethodDeclaration;
@@ -23,6 +24,17 @@ public class ElementVisitor extends ASTVisitor{
 
 	private String className, packageName;
 	private ALocalizerReport report;
+	
+	@Override
+	public boolean visit(EnumDeclaration node) {
+		ALocalizerResult ar = new ALocalizerResult();
+		String name = node.getName().toString();
+		checkForModifiers(node, ar, null);
+		String type = "enum";
+		setAlocalizerResult(ar, name, type);
+		report.add(ar);
+		return super.visit(node);
+	}
 	
 	@Override
 	public boolean visit(TypeDeclaration node) {
@@ -71,18 +83,18 @@ public class ElementVisitor extends ASTVisitor{
 	private void checkForModifiers(BodyDeclaration node, ALocalizerResult ar, String returnType) {
 		
 		List<AnnotationsResult> annotations = new ArrayList<>();
-		List<String> modifiers = new ArrayList<>();
+		List<String> signature = new ArrayList<>();
 		for (Object obj : node.modifiers()) {
 			if(obj instanceof Annotation) {
 				Annotation anot = (Annotation)obj;
 				List<AnnotAttribute> attrRep = checkForAttributes(anot);
 				annotations.add(new AnnotationsResult(anot.getTypeName().toString(), attrRep));
 			}else //other modifiers
-				modifiers.add(obj.toString());
+				signature.add(obj.toString());
 		}
-		modifiers.add(returnType);
+		signature.add(returnType);
 		ar.setAnnotations(annotations);
-		ar.setModifiers(modifiers);
+		ar.setSignature(signature);
 	}
 
 	private List<AnnotAttribute> checkForAttributes(Annotation anot) {
@@ -103,7 +115,10 @@ public class ElementVisitor extends ASTVisitor{
 	}
 	
 	private void setAlocalizerResult(ALocalizerResult ar, String name, String type) {
-		ar.setFullyQualifiedName(className + "." + name);
+		if(type.equals("class") || type.equals("enum"))
+			ar.setFullyQualifiedName(className);
+		else
+			ar.setFullyQualifiedName(className + "." + name);
 		ar.setClassName(className);
 		ar.setPackageName(packageName);
 		ar.setType(type);

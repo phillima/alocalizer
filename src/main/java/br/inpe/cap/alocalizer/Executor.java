@@ -19,14 +19,16 @@ import org.eclipse.jdt.core.dom.TypeDeclaration;
 
 import br.inpe.cap.alocalizer.output.ALocalizerResult;
 import br.inpe.cap.alocalizer.utils.ClassUtils;
+import br.inpe.cap.alocalizer.utils.FileUtils;
 
 
 public class Executor extends FileASTRequestor{
 
 	private ALocalizerReport report;
 	
-	public Executor() {
+	public Executor(String projectPath) {
 		this.report = new ALocalizerReport();
+		report.setProjectName(FileUtils.extractFinalWord(projectPath));
 	}
 	
 	@Override
@@ -40,7 +42,7 @@ public class Executor extends FileASTRequestor{
 			ClassUtils info = new ClassUtils();
 			cu.accept(info);
 			if(info.getClassName()==null) return;
-		
+			System.out.println("Class :" + info.getClassName());
 			elementVis.execute(cu,report,info.getClassName(),info.getPackageName());
 		} catch(Exception e) {
 		}

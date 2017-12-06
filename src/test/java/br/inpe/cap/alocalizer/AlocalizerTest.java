@@ -26,16 +26,16 @@ public class AlocalizerTest {
 	@Test
 	public void testMarkerAnnotation() {
 		
-		List<String> modifiers = new ArrayList<>();
-		modifiers.add("public");
-		modifiers.add("void");
+		List<String> signature = new ArrayList<>();
+		signature.add("public");
+		signature.add("void");
 		ALocalizerResult a = report.getByFullyQualifiedName("annotation.Method1Test.method1");
 		assertEquals("method1", a.getName());
 		assertEquals("annotation.Method1Test", a.getClassName());
 		assertEquals("annotation", a.getPackageName());
 		assertEquals("Annotation1", a.getAnnotations().get(0).getAnnotationName());
-		for(int i = 0; i < modifiers.size(); i++)
-			assertEquals(modifiers.get(i), a.getModifiers().get(i));
+		for(int i = 0; i < signature.size(); i++)
+			assertEquals(signature.get(i), a.getSignature().get(i));
 	}
 	
 	@Test
@@ -72,9 +72,9 @@ public class AlocalizerTest {
 	@Test
 	public void testMultipleNormalAnnotation() {
 		
-		List<String> modifiers = new ArrayList<>();
-		modifiers.add("private");
-		modifiers.add("int");
+		List<String> signature = new ArrayList<>();
+		signature.add("private");
+		signature.add("int");
 		
 		ALocalizerResult a = report.getByFullyQualifiedName("annotation.Field4Test.x");
 		
@@ -103,10 +103,37 @@ public class AlocalizerTest {
 			assertNull(attr);
 		}
 		
-		for(int i = 0; i < modifiers.size(); i++)
-			assertEquals(modifiers.get(i), a.getModifiers().get(i));
+		for(int i = 0; i < signature.size(); i++)
+			assertEquals(signature.get(i), a.getSignature().get(i));
 		
 	}
 	
+	@Test
+	public void testEnum() {
+		List<String> signature = new ArrayList<>();
+		signature.add("public");
+		ALocalizerResult a = report.getByFullyQualifiedName("annotation.Enum1");
+		assertEquals("Enum1", a.getName());
+		assertEquals("annotation.Enum1", a.getClassName());
+		assertEquals("annotation", a.getPackageName());
+		assertEquals("enum", a.getType());
+		assertEquals("AnnotationEnum", a.getAnnotations().get(0).getAnnotationName());
+		for(int i = 0; i < signature.size(); i++)
+			assertEquals(signature.get(i), a.getSignature().get(i));
+	}
+	
+	@Test
+	public void testClass() {
+		List<String> signature = new ArrayList<>();
+		signature.add("public");
+		ALocalizerResult a = report.getByFullyQualifiedName("annotation.Clazz");
+		assertEquals("Clazz", a.getName());
+		assertEquals("annotation.Clazz", a.getClassName());
+		assertEquals("annotation", a.getPackageName());
+		assertEquals("class", a.getType());
+		assertEquals("AnnotationClazz", a.getAnnotations().get(0).getAnnotationName());
+		for(int i = 0; i < signature.size(); i++)
+			assertEquals(signature.get(i), a.getSignature().get(i));
+	}
 	
 }

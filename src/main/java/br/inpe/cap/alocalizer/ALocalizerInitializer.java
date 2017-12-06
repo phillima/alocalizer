@@ -12,11 +12,9 @@ public class ALocalizerInitializer {
 	public void start(String string) {
 
 		List<Path> projects = FileUtils.listProjects(string);
-		ALocalizerReport report;
 		
 		for (Path path : projects) {
-			report = new ALocalizer().calculate(path.toString());
-			report.setProjectName(FileUtils.extractFinalWord(path.toString()));
+			ALocalizerReport report = new ALocalizer().calculate(path.toString());
 			XMLUtils.createXMLFile(new Output(report));
 		}
 		

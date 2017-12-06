@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<project name="clazz">
+    <elements>
+        <element name="Clazz" type="class">
+            <package>br.inpe.cap</package>
+            <class>Clazz</class>
+            <signature>
+                <name>public</name>
+            </signature>
+        </element>
+    </elements>
+</project>

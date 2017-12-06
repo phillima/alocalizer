@@ -12,11 +12,11 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import br.inpe.cap.alocalizer.ALocalizerReport;
 
-@XmlRootElement
+@XmlRootElement(name = "project")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Output {
 	
-	@XmlAttribute(name = "project")
+	@XmlAttribute(name = "name")
 	private String projectName;
 	@XmlElementWrapper(name = "elements")
 	@XmlElement(name = "element")

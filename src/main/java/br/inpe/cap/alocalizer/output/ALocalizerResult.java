@@ -9,7 +9,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 
-@XmlType (propOrder={"packageName","className","modifiers","annotations"})
+@XmlType (propOrder={"packageName","className","signature","annotations"})
 public class ALocalizerResult {
 	
 	private String name;
@@ -17,16 +17,16 @@ public class ALocalizerResult {
 	private List<AnnotationsResult> annotations;
 	private String className;
 	private String packageName;
-	private List<String> modifiers;
+	private List<String> signature;
 	private String fullyQualifiedName;
 	
 	public ALocalizerResult() {
 	}
 	
-	public ALocalizerResult(String name, List<String> modifiers, List<AnnotationsResult> annotations, String className,
+	public ALocalizerResult(String name, List<String> signature, List<AnnotationsResult> annotations, String className,
 			String packageName, String type) {
 		this.name = name;
-		this.modifiers = modifiers;
+		this.signature = signature;
 		this.annotations = annotations;
 		this.className = className;
 		this.packageName = packageName;
@@ -39,13 +39,13 @@ public class ALocalizerResult {
 	}
 
 	//GETTERS AND SETTERS
-	@XmlElementWrapper(name = "modifiers")
+	@XmlElementWrapper(name = "signature")
 	@XmlElement(name = "name")
-	public List<String> getModifiers() {
-		return modifiers;
+	public List<String> getSignature() {
+		return signature;
 	}
-	public void setModifiers(List<String> methodModifier) {
-		this.modifiers = methodModifier;
+	public void setSignature(List<String> signature) {
+		this.signature = signature;
 		}
 	@XmlAttribute(name = "name")
 	public String getName() {
@@ -87,7 +87,6 @@ public class ALocalizerResult {
 	public String getFullyQualifiedName() {
 		return fullyQualifiedName;
 	}
-
 	public void setFullyQualifiedName(String fullyQualifiedName) {
 		this.fullyQualifiedName = fullyQualifiedName;
 	}
