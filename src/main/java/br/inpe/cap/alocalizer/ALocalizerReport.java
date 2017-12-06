@@ -16,7 +16,7 @@ public class ALocalizerReport {
 	}
 
 	public void add(ALocalizerResult al) {
-		results.put(al.getFilePath(), al);
+		results.put(al.getFullyQualifiedName(), al);
 	}
 
 	public ALocalizerResult get(String name) {
@@ -27,9 +27,9 @@ public class ALocalizerReport {
 		return results.values();
 	}
 
-	public ALocalizerResult getByClassName(String name) {
+	public ALocalizerResult getByFullyQualifiedName(String name) {
 		for (ALocalizerResult al : all()) {
-			if (al.getClassName().equals(name))
+			if (al.getFullyQualifiedName().equals(name))
 				return al;
 		}
 

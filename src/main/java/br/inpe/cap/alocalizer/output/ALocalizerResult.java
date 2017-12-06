@@ -6,6 +6,7 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 
 @XmlRootElement(name = "element")
@@ -14,16 +15,16 @@ public class ALocalizerResult {
 	
 	private String name;
 	private String type;
-	private List<AnnotationsRep> annotations;
+	private List<AnnotationsResult> annotations;
 	private String className;
 	private String packageName;
 	private List<String> modifiers;
-	private String filePath;
+	private String fullyQualifiedName;
 	
 	public ALocalizerResult() {
 	}
 	
-	public ALocalizerResult(String name, List<String> modifiers, List<AnnotationsRep> annotations, String className,
+	public ALocalizerResult(String name, List<String> modifiers, List<AnnotationsResult> annotations, String className,
 			String packageName, String type) {
 		this.name = name;
 		this.modifiers = modifiers;
@@ -33,10 +34,9 @@ public class ALocalizerResult {
 		this.type = type;
 	}
 	
-	public ALocalizerResult(String filePath, String className, String packageName) {
+	public ALocalizerResult(String className, String packageName) {
 		this.className = className;
 		this.packageName = packageName;
-		this.filePath = filePath;
 	}
 
 	//GETTERS AND SETTERS
@@ -64,10 +64,10 @@ public class ALocalizerResult {
 	}
 	@XmlElementWrapper(name = "annotations")
 	@XmlElement(name = "annotation")
-	public List<AnnotationsRep> getAnnotations() {
+	public List<AnnotationsResult> getAnnotations() {
 		return annotations;
 	}
-	public void setAnnotations(List<AnnotationsRep> annotations) {
+	public void setAnnotations(List<AnnotationsResult> annotations) {
 		this.annotations = annotations;
 	}
 	@XmlElement(name = "package")
@@ -84,11 +84,13 @@ public class ALocalizerResult {
 	public void setClassName(String className) {
 		this.className = className;
 	}
-	public String getFilePath() {
-		return filePath;
+	@XmlTransient
+	public String getFullyQualifiedName() {
+		return fullyQualifiedName;
 	}
-	public void setFilePath(String filePath) {
-		this.filePath = filePath;
+
+	public void setFullyQualifiedName(String fullyQualifiedName) {
+		this.fullyQualifiedName = fullyQualifiedName;
 	}
 
 }

@@ -6,15 +6,15 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
-@XmlType (propOrder={"annotationName","annotAttributeRep"})
-public class AnnotationsRep {
+@XmlType (propOrder={"annotationName","annotAttributes"})
+public class AnnotationsResult {
 
 	private String annotationName;
-	private List<AnnotAttributeRep> annotAttributeRep;
+	private List<AnnotAttribute> annotAttributes;
 
-	public AnnotationsRep(String annotationName, List<AnnotAttributeRep> annotAttributeRep) {
+	public AnnotationsResult(String annotationName, List<AnnotAttribute> annotAttributeRep) {
 		this.annotationName = annotationName;
-		this.annotAttributeRep = annotAttributeRep;
+		this.annotAttributes = annotAttributeRep;
 	}
 
 	//GETTER AND SETTERS
@@ -26,11 +26,12 @@ public class AnnotationsRep {
 		this.annotationName = annotationName;
 	}
 	@XmlElement(name = "attributes")
-	public List<AnnotAttributeRep> getAnnotAttributeRep() {
-		return annotAttributeRep;
+	public List<AnnotAttribute> getAnnotAttributes() {
+		return annotAttributes;
 	}
-	public void setAnnotAttributeRep(List<AnnotAttributeRep> annotAttributeRep) {
-		this.annotAttributeRep = annotAttributeRep;
+
+	public void setAnnotAttributes(List<AnnotAttribute> annotAttributes) {
+		this.annotAttributes = annotAttributes;
 	}
 	
 }

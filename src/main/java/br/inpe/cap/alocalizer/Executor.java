@@ -41,11 +41,7 @@ public class Executor extends FileASTRequestor{
 			cu.accept(info);
 			if(info.getClassName()==null) return;
 		
-			result = new ALocalizerResult(sourceFilePath, info.getClassName(), info.getType());
-			
-			elementVis.execute(cu, result, report);
-			elementVis.setResult(result);
-			report.add(result);
+			elementVis.execute(cu,report,info.getClassName(),info.getPackageName());
 		} catch(Exception e) {
 		}
 	}
