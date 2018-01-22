@@ -42,7 +42,7 @@ public class Executor extends FileASTRequestor{
 			ClassUtils info = new ClassUtils();
 			cu.accept(info);
 			if(info.getClassName()==null) return;
-			System.out.println("Class :" + info.getClassName());
+			//System.out.println("Class :" + info.getClassName());
 			elementVis.execute(cu,report,info.getClassName(),info.getPackageName());
 		} catch(Exception e) {
 		}

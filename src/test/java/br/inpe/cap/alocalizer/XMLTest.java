@@ -24,6 +24,7 @@ public class XMLTest {
 	
 	private static List<String> signature = new ArrayList<>();
 	private static List<Path> paths = new ArrayList<>();
+	private static String outputPath = "";
 	
 	@BeforeClass
 	public static void initialize() {
@@ -31,6 +32,7 @@ public class XMLTest {
 		signature.add("public");
 		signature.add("static");
 		signature.add("void");
+		outputPath = System.getProperty("user.dir");
 	}
 	
 	@Test	
@@ -44,7 +46,7 @@ public class XMLTest {
 		report.add(method1);
 		report.setProjectName("method1");
 		
-		XMLUtils.createXMLFile(new Output(report));
+		XMLUtils.createXMLFile(new Output(report), outputPath);
 		
 		paths.add(Paths.get("method1.xml"));
 		
@@ -61,7 +63,7 @@ public class XMLTest {
 		ALocalizerReport report = new ALocalizerReport();
 		report.add(field1);
 		report.setProjectName("field1");
-		XMLUtils.createXMLFile(new Output(report));
+		XMLUtils.createXMLFile(new Output(report), outputPath);
 		
 		paths.add(Paths.get("field1.xml"));
 		
@@ -85,7 +87,7 @@ public class XMLTest {
 		ALocalizerReport report = new ALocalizerReport();
 		report.add(field2);
 		report.setProjectName("field2");
-		XMLUtils.createXMLFile(new Output(report));
+		XMLUtils.createXMLFile(new Output(report), outputPath);
 		
 		paths.add(Paths.get("field2.xml"));
 		
@@ -102,7 +104,7 @@ public class XMLTest {
 		ALocalizerReport report = new ALocalizerReport();
 		report.add(clazz);
 		report.setProjectName("clazz");
-		XMLUtils.createXMLFile(new Output(report));
+		XMLUtils.createXMLFile(new Output(report), outputPath);
 		
 		paths.add(Paths.get("clazz.xml"));
 		

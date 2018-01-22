@@ -9,13 +9,13 @@ import br.inpe.cap.alocalizer.utils.XMLUtils;
 
 public class ALocalizerInitializer {
 
-	public void start(String string) {
+	public void start(String projectPath) {
 
-		List<Path> projects = FileUtils.listProjects(string);
+		List<Path> projects = FileUtils.listProjects(projectPath);
 		
 		for (Path path : projects) {
 			ALocalizerReport report = new ALocalizer().calculate(path.toString());
-			XMLUtils.createXMLFile(new Output(report));
+			XMLUtils.createXMLFile(new Output(report),projectPath);
 		}
 		
 	}

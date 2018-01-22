@@ -22,9 +22,7 @@ public class Output {
 	@XmlElement(name = "element")
 	private List<ALocalizerResult> results;
 	
-	public Output() {
-		
-	}
+	public Output() {}
 	
 	public Output(ALocalizerReport report) {
 		this.projectName = report.getProjectName();
