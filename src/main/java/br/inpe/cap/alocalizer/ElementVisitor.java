@@ -5,14 +5,17 @@ import java.util.List;
 
 import org.eclipse.jdt.core.dom.ASTVisitor;
 import org.eclipse.jdt.core.dom.Annotation;
+import org.eclipse.jdt.core.dom.AnnotationTypeDeclaration;
 import org.eclipse.jdt.core.dom.BodyDeclaration;
 import org.eclipse.jdt.core.dom.CompilationUnit;
 import org.eclipse.jdt.core.dom.EnumDeclaration;
 import org.eclipse.jdt.core.dom.FieldDeclaration;
+import org.eclipse.jdt.core.dom.MarkerAnnotation;
 import org.eclipse.jdt.core.dom.MemberValuePair;
 import org.eclipse.jdt.core.dom.MethodDeclaration;
 import org.eclipse.jdt.core.dom.NormalAnnotation;
 import org.eclipse.jdt.core.dom.SingleMemberAnnotation;
+import org.eclipse.jdt.core.dom.Type;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
 import org.eclipse.jdt.core.dom.VariableDeclarationFragment;
 
@@ -22,8 +25,28 @@ import br.inpe.cap.alocalizer.output.AnnotationsResult;
 
 public class ElementVisitor extends ASTVisitor{
 
-	private String className, packageName;
+	private String className, packageName, superClass;
+	private List<String> interfaces;
 	private ALocalizerReport report;
+	private int numberOfAnnotations;
+	
+	@Override
+	public boolean visit(NormalAnnotation node) {
+		numberOfAnnotations++;
+		return super.visit(node);
+	}
+	
+	@Override
+	public boolean visit(MarkerAnnotation node) {
+		numberOfAnnotations++;
+		return super.visit(node);
+	}
+	
+	@Override
+	public boolean visit(SingleMemberAnnotation node) {
+		numberOfAnnotations++;
+		return super.visit(node);
+	}
 	
 	@Override
 	public boolean visit(EnumDeclaration node) {
@@ -48,10 +71,26 @@ public class ElementVisitor extends ASTVisitor{
 	}
 	
 	@Override
+	public boolean visit(AnnotationTypeDeclaration node) {
+		ALocalizerResult ar = new ALocalizerResult();
+		String name = node.getName().toString();
+		checkForModifiers(node, ar, null);
+		String type = "annotation-declaration";
+		setAlocalizerResult(ar, name, type);
+		report.add(ar);
+		return super.visit(node);
+	}
+	
+	@Override
 	public boolean visit(MethodDeclaration node) {
 		ALocalizerResult ar = new ALocalizerResult();
 		String name = node.getName().toString();
-		checkForModifiers(node,ar,node.getReturnType2().toString());
+		String returnType = "";
+		if(node.getReturnType2()==null)
+			returnType = null;
+		else
+			returnType = node.getReturnType2().toString();
+		checkForModifiers(node,ar,returnType);
 		setAlocalizerResult(ar, name, "method");
 		report.add(ar);
 		return super.visit(node);
@@ -71,17 +110,24 @@ public class ElementVisitor extends ASTVisitor{
 		return super.visit(node);
 	}
 	
-	
-	public void execute(CompilationUnit cu, ALocalizerReport report, String className, String packageName) {
+	public void execute(CompilationUnit cu, ALocalizerReport report, String className, String packageName
+			,String superClass, List<String> interfaces) {
 		this.packageName = packageName;
 		this.className = className;
+		this.superClass = superClass;
+		this.interfaces = interfaces;
 		this.report = report;
 		cu.accept(this);
 	}
 	
+	public void getAnnotations() {
+		this.report.incrementNumberOfAnnotations(numberOfAnnotations);
+		if(this.numberOfAnnotations > 0)
+			this.report.incrementNumberOfAnnotatedClasses();
+	}
+	
 	//INNER HELPER METHODS
 	private void checkForModifiers(BodyDeclaration node, ALocalizerResult ar, String returnType) {
-		
 		List<AnnotationsResult> annotations = new ArrayList<>();
 		List<String> signature = new ArrayList<>();
 		for (Object obj : node.modifiers()) {
@@ -115,7 +161,7 @@ public class ElementVisitor extends ASTVisitor{
 	}
 	
 	private void setAlocalizerResult(ALocalizerResult ar, String name, String type) {
-		if(type.equals("class") || type.equals("enum"))
+		if(type.equals("class") || type.equals("enum") || type.equals("annotation-declaration"))
 			ar.setFullyQualifiedName(className);
 		else
 			ar.setFullyQualifiedName(className + "." + name);
@@ -123,5 +169,7 @@ public class ElementVisitor extends ASTVisitor{
 		ar.setPackageName(packageName);
 		ar.setType(type);
 		ar.setName(name);
+		ar.setInterfaces(interfaces);
+		ar.setSuperClass(superClass);
 	}
 }

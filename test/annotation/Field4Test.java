@@ -9,6 +9,7 @@ public class Field4Test{
 	@Annotation3
 	private int y;
 	
+	@Annotation4(value1="Dark",value2="Souls")
 	private int z;
 
 }

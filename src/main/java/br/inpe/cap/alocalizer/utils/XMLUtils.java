@@ -14,15 +14,16 @@ public class XMLUtils {
 	public static void createXMLFile(Output output, String projectPath) {
 		
 		Path outputPath = java.nio.file.Paths.get(projectPath, output.getProjectName() + ".xml");
-		boolean directory1Exists = java.nio.file.Files.exists(outputPath);
 				
 		File file = new File(outputPath.toString());
 		try {
-	        
+				        
 	        JAXBContext jaxbContext = JAXBContext.newInstance(Output.class);
 	        Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
 
+	        jaxbMarshaller.setProperty("jaxb.encoding", "UTF-8"); 
 	        jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+	            
 
 	        jaxbMarshaller.marshal(output, file);
 	        //jaxbMarshaller.marshal(output, System.out);

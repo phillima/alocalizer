@@ -15,7 +15,5 @@ public class MainClass {
 			System.out.println("Please inform a valid directory");
 			System.out.println(args[0] + "is not a valid directory.");
 		}
-			
 	}
-
 }

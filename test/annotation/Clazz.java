@@ -1,7 +1,7 @@
 package annotation;
 
 @AnnotationClazz
-public class Clazz {
+public class Clazz extends SuperClass1 implements Interface1,Interface2 {
    
    private int j;
 

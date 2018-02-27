@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<project name="field3">
+    <elements>
+        <element name="field3" type="field">
+            <package>br.inpe.cap</package>
+            <class>Field3</class>
+            <signature>
+                <name>public</name>
+                <name>static</name>
+                <name>void</name>
+            </signature>
+            <annotations>
+                <annotation name="@Annotation1">
+                    <attributes name="value1" value="&quot;Dark&quot;"/>
+                    <attributes name="value2" value="&quot;Souls&quot;"/>
+                </annotation>
+            </annotations>
+        </element>
+    </elements>
+</project>

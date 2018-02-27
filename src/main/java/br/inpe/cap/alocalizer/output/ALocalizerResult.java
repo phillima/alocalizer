@@ -5,11 +5,10 @@ import java.util.List;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
-import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 
-@XmlType (propOrder={"packageName","className","signature","annotations"})
+@XmlType (propOrder={"packageName","className","signature","superClass","interfaces","annotations"})
 public class ALocalizerResult {
 	
 	private String name;
@@ -19,18 +18,21 @@ public class ALocalizerResult {
 	private String packageName;
 	private List<String> signature;
 	private String fullyQualifiedName;
+	private String superClass;
+	private List<String> interfaces;
 	
-	public ALocalizerResult() {
-	}
+	public ALocalizerResult() {}
 	
-	public ALocalizerResult(String name, List<String> signature, List<AnnotationsResult> annotations, String className,
-			String packageName, String type) {
+	public ALocalizerResult(String name, List<String> signature, List<AnnotationsResult> annotations, 
+			String className, String packageName, String type, String superClass, List<String> interfaces) {
 		this.name = name;
 		this.signature = signature;
 		this.annotations = annotations;
 		this.className = className;
 		this.packageName = packageName;
 		this.type = type;
+		this.superClass = superClass;
+		this.interfaces = interfaces;
 	}
 	
 	public ALocalizerResult(String className, String packageName) {
@@ -61,8 +63,8 @@ public class ALocalizerResult {
 	public void setType(String type) {
 		this.type = type;
 	}
-	@XmlElementWrapper(name = "annotations")
-	@XmlElement(name = "annotation")
+	@XmlElementWrapper(name = "annotations", required = false)
+	@XmlElement(name = "annotation", required = false)
 	public List<AnnotationsResult> getAnnotations() {
 		return annotations;
 	}
@@ -90,5 +92,19 @@ public class ALocalizerResult {
 	public void setFullyQualifiedName(String fullyQualifiedName) {
 		this.fullyQualifiedName = fullyQualifiedName;
 	}
-
+	@XmlElement(name ="superclass", required=false)
+	public String getSuperClass() {
+		return superClass;
+	}
+	public void setSuperClass(String superClass) {
+		this.superClass = superClass;
+	}
+	@XmlElementWrapper(name ="interfaces",required=false)
+	@XmlElement(name ="name")
+	public List<String> getInterfaces() {
+		return interfaces;
+	}
+	public void setInterfaces(List<String> interfaces) {
+		this.interfaces = interfaces;
+	}
 }

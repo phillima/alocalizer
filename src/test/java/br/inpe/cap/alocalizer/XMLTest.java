@@ -7,6 +7,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.junit.AfterClass;
@@ -41,7 +42,8 @@ public class XMLTest {
 		List<AnnotationsResult> annotations = new ArrayList<>();
 		annotations.add(new AnnotationsResult("@Annotation1", null));
 		
-		ALocalizerResult method1 = new ALocalizerResult("method1", signature, annotations, "Method1", "br.inpe.cap", "method");
+		ALocalizerResult method1 = new ALocalizerResult("method1", signature, annotations, "Method1", "br.inpe.cap", 
+				"method", null, null);
 		ALocalizerReport report = new ALocalizerReport();
 		report.add(method1);
 		report.setProjectName("method1");
@@ -58,8 +60,8 @@ public class XMLTest {
 		
 		List<AnnotationsResult> annotations = new ArrayList<>();
 		annotations.add(new AnnotationsResult("@Annotation1", null));
-		
-		ALocalizerResult field1 = new ALocalizerResult("field1", signature, annotations,"Field1" ,"br.inpe.cap", "field");
+		ALocalizerResult field1 = new ALocalizerResult("field1", signature, annotations,"Field1" ,"br.inpe.cap",
+								"field", null, null);
 		ALocalizerReport report = new ALocalizerReport();
 		report.add(field1);
 		report.setProjectName("field1");
@@ -82,15 +84,13 @@ public class XMLTest {
 		
 		List<AnnotationsResult> annotations = new ArrayList<>();
 		annotations.add(new AnnotationsResult("@Annotation1", attributes));
-		
-		ALocalizerResult field2 = new ALocalizerResult("field2", signature, annotations,"Field2" ,"br.inpe.cap", "field");
+		ALocalizerResult field2 = new ALocalizerResult("field2", signature, annotations,"Field2" ,
+				"br.inpe.cap", "field", null, null);
 		ALocalizerReport report = new ALocalizerReport();
 		report.add(field2);
 		report.setProjectName("field2");
 		XMLUtils.createXMLFile(new Output(report), outputPath);
-		
 		paths.add(Paths.get("field2.xml"));
-		
 		assertEquals(FileUtils.readFileAsString("test/xml/field2.xml"), FileUtils.readFileAsString("field2.xml"));
 	}
 	
@@ -99,16 +99,34 @@ public class XMLTest {
 		
 		List<String> signature = new ArrayList<>();
 		signature.add("public");
-		
-		ALocalizerResult clazz = new ALocalizerResult("Clazz", signature, null, "Clazz" ,"br.inpe.cap", "class");
+		ALocalizerResult clazz = new ALocalizerResult("Clazz", signature, null, "Clazz" ,
+				"br.inpe.cap", "class", "SuperClass", new ArrayList<String>(Arrays.asList("Interface1","Interface2")));
 		ALocalizerReport report = new ALocalizerReport();
 		report.add(clazz);
 		report.setProjectName("clazz");
 		XMLUtils.createXMLFile(new Output(report), outputPath);
-		
 		paths.add(Paths.get("clazz.xml"));
-		
 		assertEquals(FileUtils.readFileAsString("test/xml/clazz.xml"), FileUtils.readFileAsString("clazz.xml"));
+	}
+	
+	@Test
+	public void testAnnotationWithStringAttributes() {
+		
+		AnnotAttribute attr1 = new AnnotAttribute("value1","\"Dark\"");
+		AnnotAttribute attr2 = new AnnotAttribute("value2","\"Souls\"");
+		List<AnnotAttribute> attributes = new ArrayList<>();
+		attributes.add(attr1);
+		attributes.add(attr2);
+		List<AnnotationsResult> annotations = new ArrayList<>();
+		annotations.add(new AnnotationsResult("@Annotation1", attributes));
+		ALocalizerResult field3 = new ALocalizerResult("field3", signature, annotations,"Field3", 
+				"br.inpe.cap", "field", null, null);
+		ALocalizerReport report = new ALocalizerReport();
+		report.add(field3);
+		report.setProjectName("field3");
+		XMLUtils.createXMLFile(new Output(report), outputPath);
+		paths.add(Paths.get("field3.xml"));
+		assertEquals(FileUtils.readFileAsString("test/xml/field3.xml"), FileUtils.readFileAsString("field3.xml"));
 	}
 	
 	@AfterClass

@@ -7,6 +7,11 @@
             <signature>
                 <name>public</name>
             </signature>
+            <superclass>SuperClass</superclass>
+            <interfaces>
+                <name>Interface1</name>
+                <name>Interface2</name>
+            </interfaces>
         </element>
     </elements>
 </project>

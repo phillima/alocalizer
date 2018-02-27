@@ -20,7 +20,9 @@ public class AlocalizerTest {
 	
 	@BeforeClass
 	public static void initialzer() {
-		report = new ALocalizer().calculate("test");
+		String testFilePath = System.getProperty("user.dir") + "/test";
+		System.out.println(testFilePath);
+		report = new ALocalizer().calculate(testFilePath);
 	}
 	
 	@Test
@@ -102,6 +104,18 @@ public class AlocalizerTest {
 			List<AnnotAttribute> attr = ar5.getAnnotAttributes();
 			assertNull(attr);
 		}
+		
+		ALocalizerResult a3 = report.getByFullyQualifiedName("annotation.Field4Test.z");
+	
+		AnnotationsResult ar6 = a3.getAnnotations().get(0);
+		AnnotAttribute attr5 = ar6.getAnnotAttributes().get(0);
+		assertEquals("value1", attr5.getAnotAttributes());
+		assertEquals("\"Dark\"", attr5.getAnotAttributesValues());
+		
+		AnnotAttribute attr6 = ar6.getAnnotAttributes().get(1);
+		assertEquals("value2", attr6.getAnotAttributes());
+		assertEquals("\"Souls\"", attr6.getAnotAttributesValues());
+		
 		
 		for(int i = 0; i < signature.size(); i++)
 			assertEquals(signature.get(i), a.getSignature().get(i));
