@@ -5,6 +5,8 @@
 .metadata
 bin/
 tmp/
+target/
+*.log
 *.tmp
 *.bak
 *.swp
